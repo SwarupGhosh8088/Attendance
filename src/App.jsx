@@ -1,4 +1,8 @@
 import { useState } from "react";
+import { FaCopy } from "react-icons/fa";
+import { BsCheckCircle, BsXCircle } from "react-icons/bs";
+import { AiOutlineTeam } from "react-icons/ai";
+import { FaFileExport } from "react-icons/fa";
 
 function App() {
   const numStart = 128;
@@ -20,11 +24,11 @@ function App() {
 
   return (
     <>
-      <h1 className="bg-amber-400 p-3 flex justify-center align-center text-xl ">
+      <h1 className="  bg-slate-700 text-amber-50 p-3 flex justify-center align-center text-xl fixed w-full top-0 shadow-2xl">
         Roll Number Attendance System
       </h1>
       <div className=" h-auto w-auto bg-mist-200">
-        <h1 className="flex justify-center  text-amber-50  bg-amber-700 p-1">
+        <h1 className="flex justify-center    shadow-2xl p-1 bg-orange-400 mt-13 ">
           Attendance System BCA "C"{" "}
         </h1>
 
@@ -48,20 +52,30 @@ function App() {
         </div>
       </div>
       <hr />
-      <div className="bg-mist-200 p-4 flex flex-col justify-center gap-4">
+      <div className="bg-mist-200 p-4 flex  justify-center gap-4">
+
         <button
-          className="bg-green-500   text-white p-3  rounded-lg"
+          className="bg-green-500   text-white p-3  rounded-lg flex items-center gap-2 hover:bg-green-600"
           onClick={handleCopy}
         >
-          Copy Present Students
+          <FaCopy className="text-2xl" /> Copy Present
         </button>
-        <hr />
-        <h1 className="text-xl font-bold">Present Students: {presentStudents.length}</h1>
-        <h1 className="text-lg">Absent Students: {totalStudents - presentStudents.length}</h1>
-        <h1 className="text-md">Total Students: {totalStudents}</h1>
-        <h1 className="text-lg">Total Student list with roll no: {Array.from({ length: presentStudents.length }, (_, i) => i + numStart).join(", ")}</h1>
-        <h1></h1>
+        <button className="bg-blue-600  text-white p-3 rounded-lg flex items-center gap-2 hover:bg-blue-800">
+          <FaFileExport className="text-2xl" /> Export TXT
+        </button>
+
       </div>
+      <div className="bg-mist-200 p-4 flex gap-10  justify-center items-center">
+        <h1 className="text-lg font-bold flex flex-col justify-center align-center"> <AiOutlineTeam className="text-3xl text-indigo-700 ml-3"/> Total: {totalStudents}</h1>
+        <h1 className="text-md flex flex-col justify-center align-center"> <BsCheckCircle className="text-3xl text-green-500 ml-3"/>Present: {presentStudents.length}</h1>
+        <h1 className="text-md flex flex-col justify-center align-center"> <BsXCircle className="text-3xl text-red-500 ml-3"/>  Absent :{totalStudents - presentStudents.length}</h1>
+        
+      </div>
+
+
+      <footer className="bg-amber-700 flex justify-center align-center text-sm  text-amber-50">
+        Developed by &copy; Swarup Ghosh
+      </footer>
     </>
   );
 }
