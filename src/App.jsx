@@ -28,7 +28,7 @@ function App() {
 
   const handleCopy = () => {
     navigator.clipboard.writeText(presentStudents.join(","));
-    alert("Copied: " + presentStudents.join(","));
+
   };
 
   return (
