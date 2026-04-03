@@ -9,6 +9,15 @@ function App() {
   const totalStudents = 63;
   const [presentStudents, setPresentStudents] = useState([]);
 
+  const [isOpen, setIsOpen] = useState(false);
+  const openPopup = () => {
+    setIsOpen(true);
+  }
+  const closePopup = () => {
+    setIsOpen(false);
+  } 
+
+
   const handleAttendance = (roll) => {
     if (presentStudents.includes(roll)) {
       setPresentStudents(presentStudents.filter((student) => student !== roll));
@@ -56,7 +65,10 @@ function App() {
 
         <button
           className="bg-green-500   text-white p-3  rounded-lg flex items-center gap-2 hover:bg-green-600"
-          onClick={handleCopy}
+          onClick={() => {
+            handleCopy();
+            openPopup();
+          }}
         >
           <FaCopy className="text-2xl" /> Copy Present
         </button>
@@ -76,6 +88,28 @@ function App() {
       <footer className="bg-amber-700 flex justify-center align-center text-sm  text-amber-50">
         Developed by &copy; Swarup Ghosh
       </footer>
+
+
+
+       {isOpen && (
+        // Overlay background
+        <div
+          className="fixed inset-1 top-5   bg-opacity-50 flex justify-center items-center"
+        >
+          {/* Centered popup */}
+          <div className="bg-white p-4 shadow-lg  relative rounded-2xl flex flex-col justify-center items-center w-auto p-3" >
+            <p className="text-xl font-serif">Copied to clipboard: {presentStudents.join(",")}</p>
+            <button
+              onClick={closePopup}
+              className="mt-4 bg-blue-500 text-white px-4 py-2 rounded"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
+
+
     </>
   );
 }
