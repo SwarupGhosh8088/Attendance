@@ -94,17 +94,21 @@ function App() {
        {isOpen && (
         // Overlay background
         <div
-          className="fixed inset-1 top-5   bg-opacity-50 flex justify-center items-center"
+          className="fixed inset-1 top-5   bg-opacity-50 flex justify-center items-center "
         >
           {/* Centered popup */}
-          <div className="bg-white p-4 shadow-lg  relative rounded-2xl flex flex-col justify-center items-center w-auto p-3" >
-            <p className="text-xl font-serif">Copied to clipboard: {presentStudents.join(",")}</p>
+          <div className="bg-white shadow-lg   relative rounded-2xl flex  gap-4 justify-center items-center w-auto p-4 " >
+            
+            
+            
+            <p className="text-xl  font-serif">Copied to clipboard</p>
             <button
               onClick={closePopup}
-              className="mt-4 bg-blue-500 text-white px-4 py-2 rounded"
+              className=""
             >
-              Close
+              <BsXCircle className="text-2xl ml-2 text-red-500 mb-8" />
             </button>
+            
           </div>
         </div>
       )}
