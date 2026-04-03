@@ -9,13 +9,46 @@ function App() {
   const totalStudents = 63;
   const [presentStudents, setPresentStudents] = useState([]);
 
+  const [value, setValue] = useState("")
+
   const [isOpen, setIsOpen] = useState(false);
+
   const openPopup = () => {
-    setIsOpen(true);
+    if (presentStudents == false) {
+      setValue("No students are present.")
+    }
+    else {
+      setValue("Copied to clipboard ")
+    }
+    setIsOpen(true)
   }
   const closePopup = () => {
     setIsOpen(false);
-  } 
+  }
+  const now = new Date();
+
+  const handleExport = () => {
+    const content = presentStudents.join("\n");
+
+    if (content.length === 0) {
+      setValue("No students are present to export.");
+      alert("No students are present to export.");
+      return
+    } else {
+      alert("Exporting list");
+      
+    }
+
+
+
+
+    const blob = new Blob([content], { type: "text/plain" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "List-" + now.toLocaleDateString() + "-" + now.toLocaleTimeString() + ".txt";
+    link.click();
+    URL.revokeObjectURL(link.href);
+  }
 
 
   const handleAttendance = (roll) => {
@@ -70,18 +103,18 @@ function App() {
             openPopup();
           }}
         >
-          <FaCopy className="text-2xl" /> Copy Present
+          <FaCopy className="text-2xl" />Copy Present
         </button>
-        <button className="bg-blue-600  text-white p-3 rounded-lg flex items-center gap-2 hover:bg-blue-800">
+        <button onClick={() => { handleExport(); }} className="bg-blue-600  text-white p-3 rounded-lg flex items-center gap-2 hover:bg-blue-800">
           <FaFileExport className="text-2xl" /> Export TXT
         </button>
 
       </div>
       <div className="bg-mist-200 p-4 flex gap-10  justify-center items-center">
-        <h1 className="text-lg font-bold flex flex-col justify-center align-center"> <AiOutlineTeam className="text-3xl text-indigo-700 ml-3"/> Total: {totalStudents}</h1>
-        <h1 className="text-md flex flex-col justify-center align-center"> <BsCheckCircle className="text-3xl text-green-500 ml-3"/>Present: {presentStudents.length}</h1>
-        <h1 className="text-md flex flex-col justify-center align-center"> <BsXCircle className="text-3xl text-red-500 ml-3"/>  Absent :{totalStudents - presentStudents.length}</h1>
-        
+        <h1 className="text-lg font-bold flex flex-col justify-center align-center"> <AiOutlineTeam className="text-3xl text-indigo-700 ml-3" /> Total: {totalStudents}</h1>
+        <h1 className="text-md flex flex-col justify-center align-center"> <BsCheckCircle className="text-3xl text-green-500 ml-3" />Present: {presentStudents.length}</h1>
+        <h1 className="text-md flex flex-col justify-center align-center"> <BsXCircle className="text-3xl text-red-500 ml-3" />  Absent :{totalStudents - presentStudents.length}</h1>
+
       </div>
 
 
@@ -91,24 +124,24 @@ function App() {
 
 
 
-       {isOpen && (
+      {isOpen && (
         // Overlay background
         <div
           className="fixed inset-1 top-5   bg-opacity-50 flex justify-center items-center "
         >
           {/* Centered popup */}
           <div className="bg-white shadow-lg   relative rounded-2xl flex  gap-4 justify-center items-center w-auto p-4 " >
-            
-            
-            
-            <p className="text-xl  font-serif">Copied to clipboard</p>
+
+
+
+            <p className="text-xl  font-serif">{value}</p>
             <button
               onClick={closePopup}
               className=""
             >
               <BsXCircle className="text-2xl ml-2 text-red-500 mb-8" />
             </button>
-            
+
           </div>
         </div>
       )}
